@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'home');
+Route::view('contact-us', 'contact');
+Route::view('about', 'about');
+Route::get('customers', 'CustomersController@index');
+Route::get('customers/create', 'CustomersController@create');
+Route::post('customers', 'CustomersController@store');
