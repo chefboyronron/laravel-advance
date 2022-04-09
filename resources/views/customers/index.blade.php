@@ -27,7 +27,9 @@
                 <tbody>
                     @foreach( $customers as $customer )
                         <tr>
-                            <td>{{ $customer->name }}</td>
+                            <td>
+                                <a href="/customers/{{ $customer->id }}">{{ $customer->name }}</a>
+                            </td>
                             <td>{{ $customer->email }}</td>
                             <td>{{ $customer->company->name }}</td>
                             <td>{{ $customer->status }}</td>
@@ -35,8 +37,8 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $customers->links() }}
         </div>
-        {{ $customers->links() }}
     </div>
 
     <hr>

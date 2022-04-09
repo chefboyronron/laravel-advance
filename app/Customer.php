@@ -26,15 +26,20 @@ class Customer extends Model
     protected $guarded = [];
 
     /**
+     * Default attributes
+     */
+    protected $attributes = [
+        // Field name
+        'status' => 0
+    ];
+
+    /**
      * Accessor and Mutator
      * Approach change in laravel 9
      */
     public function getStatusAttribute($attribute)
     {
-        return [
-            0 => 'Inactive',
-            1 => 'Active'
-        ][$attribute];
+        return $this->statusOptions()[$attribute];
     }
 
     /**
@@ -58,5 +63,14 @@ class Customer extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function statusOptions()
+    {
+        return [
+            1 => 'Active',
+            0 => 'Inactive',
+            2 => 'In Progress'
+        ];
     }
 }

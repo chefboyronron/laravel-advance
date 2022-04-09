@@ -25,8 +25,9 @@ class CustomersController extends Controller
 
     public function create()
     {
+        $customer = new Customer();
         $companies = Company::all();
-        return view('customers.create', compact('companies'));
+        return view('customers.create', compact('companies', 'customer'));
     }
 
     public function store()
@@ -35,8 +36,8 @@ class CustomersController extends Controller
          * fields validation rules
          */
         $data = request()->validate([
-            'name' => 'required|min:3|max:50|unique:customers',
-            'email' => 'required|email|unique:customers',
+            'name' => 'required|min:3|max:50|unique:customers,name',
+            'email' => 'required|email|unique:customers,email',
             'status' => 'required',
             'company_id' => 'required'
         ]);
@@ -51,8 +52,52 @@ class CustomersController extends Controller
         /**
          * Field protected method using guarded and fillable property
          * */ 
-        $customer = Customer::create($data);
+        $customer = Customer::create($this->validateRequest());
 
         return redirect('customers');
     }
+
+    /** Option 2
+     * @description - Route model binding
+     * @param ( Customer $customer )
+     * Customer - Model
+     * $customer - Route variable
+     *  - should same with the route wildcard {variable}
+     */
+    public function show( $customer )
+    {
+        // Option 1
+        // if record exists show details else throw 404 not found
+        $customer = Customer::where('id', $customer)->firstOrFail();
+        return view('customers.show', compact('customer'));
+    }
+
+    public function edit( Customer $customer )
+    {
+        $companies = Company::all();
+        return view('customers.edit', compact('customer', 'companies'));
+    }
+
+    public function update(Customer $customer)
+    {
+        $customer->update($this->validateRequest($customer->id));
+        return redirect('customers/' . $customer->id);
+    }
+
+    public function delete(Customer $customer)
+    {
+        $customer->delete();
+        return redirect('customers');
+    }
+
+    public function validateRequest($customer_id = '')
+    {
+        return request()->validate([
+            'name' => 'required|min:3|max:50|unique:customers,name,' . $customer_id,
+            'email' => 'required|email|unique:customers,email,' . $customer_id,
+            'status' => 'required',
+            'company_id' => 'required'
+        ]);
+    }
+
 }
