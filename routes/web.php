@@ -12,8 +12,10 @@
 */
 
 Route::view('/', 'home');
-Route::view('contact-us', 'contact');
 Route::view('about', 'about');
+
+Route::get('contact', 'ContactFormController@create');
+Route::post('contact', 'ContactFormController@store');
 
 // 7 resource controllers
 // Route::get('customers', 'CustomersController@index');

@@ -35,12 +35,12 @@ class CustomersController extends Controller
         /**
          * fields validation rules
          */
-        $data = request()->validate([
-            'name' => 'required|min:3|max:50|unique:customers,name',
-            'email' => 'required|email|unique:customers,email',
-            'status' => 'required',
-            'company_id' => 'required'
-        ]);
+        // $data = request()->validate([
+        //     'name' => 'required|min:3|max:50|unique:customers,name',
+        //     'email' => 'required|email|unique:customers,email',
+        //     'status' => 'required',
+        //     'company_id' => 'required'
+        // ]);
 
         /** Laravel procedural insert  */
         // $customer = new Customer;
@@ -84,7 +84,7 @@ class CustomersController extends Controller
         return redirect('customers/' . $customer->id);
     }
 
-    public function delete(Customer $customer)
+    public function destroy(Customer $customer)
     {
         $customer->delete();
         return redirect('customers');
