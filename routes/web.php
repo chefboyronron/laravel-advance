@@ -12,7 +12,7 @@
 */
 
 Route::view('/', 'home');
-Route::view('about', 'about');
+Route::view('about', 'about')->middleware('test');
 
 Route::get('contact', 'ContactFormController@create');
 Route::post('contact', 'ContactFormController@store');
@@ -26,5 +26,20 @@ Route::post('contact', 'ContactFormController@store');
 // Route::patch('customers/{customer}', 'CustomersController@update');
 // Route::delete('customers/{customer}', 'CustomersController@delete');
 
-// Simplify resources route
+// Simplified resources route
+// Route::resource('customers', 'CustomersController')->middleware('auth');
+
+/** 2 types of authentication via middleware
+ * Authenticate page route with middleware
+ *  - show login page if not logged-in
+ * 1. via route level
+ * - Route::resource('customers', 'CustomersController')->middleware('auth');
+ * 2. via controller level
+ * - in __construct() add $this->middleware('auth')
+ * - please refer in the CustomerController
+ */
 Route::resource('customers', 'CustomersController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

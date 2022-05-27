@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('page_title', 'Details for Customer ' . $customer->name)
 

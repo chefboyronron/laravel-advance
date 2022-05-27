@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Customer;
 use App\Company;
 
 class CustomersController extends Controller
 {
+
+    public function __construct()
+    {
+
+        // except([] = list of resfull controller methods) 
+        $this->middleware('auth')->except(['index']);
+    }
+
     public function index() 
     {
         $activeCustomers = Customer::active('created_at', 'desc')->paginate(3, ['*'], 'active');
