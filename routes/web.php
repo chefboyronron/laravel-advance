@@ -14,8 +14,8 @@
 Route::view('/', 'home');
 Route::view('about', 'about')->middleware('test');
 
-Route::get('contact', 'ContactFormController@create');
-Route::post('contact', 'ContactFormController@store');
+Route::get('contact', 'ContactFormController@create')->name('contact.create');
+Route::post('contact', 'ContactFormController@store')->name('contact.store');
 
 // 7 resource controllers
 // Route::get('customers', 'CustomersController@index');
