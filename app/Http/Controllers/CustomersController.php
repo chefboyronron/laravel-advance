@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\NewCustomerHasRegisteredEvent;
 use App\Customer;
 use App\Company;
 
@@ -63,7 +64,9 @@ class CustomersController extends Controller
          * */ 
         $customer = Customer::create($this->validateRequest());
 
-        return redirect('customers');
+        event(new NewCustomerHasRegisteredEvent($customer));
+        
+        // return redirect('customers');
     }
 
     /** Option 2
