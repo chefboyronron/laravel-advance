@@ -76,4 +76,8 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 1. Queue
  - php artisan queue:table
  - php artisan migrate
- - php artisan work
+ - php artisan queue:work
+ - in background 
+   - php artisan queue:work > storage/logs/jobs.log &
+   - jobs -l
+   - KILL {PROCESS_ID}
