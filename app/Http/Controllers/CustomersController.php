@@ -64,9 +64,10 @@ class CustomersController extends Controller
          * */ 
         $customer = Customer::create($this->validateRequest());
 
+        // Events and Listener
         event(new NewCustomerHasRegisteredEvent($customer));
         
-        // return redirect('customers');
+        return redirect('customers');
     }
 
     /** Option 2
