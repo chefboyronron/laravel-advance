@@ -6,10 +6,17 @@
 
     <div class="row">
         <div class="col-12">
-            <h2>Customers</h2> 
-            <a href="{{ url('customers/create') }}" class="btn btn-success">Add</a>
+            <h2>Customers</h2>
         </div>
     </div>
+
+    @can('create', App\Customer::class)
+        <div class="row">
+            <div class="col-12">
+                <a href="{{ url('customers/create') }}" class="btn btn-success">Add</a>
+            </div>
+        </div>
+    @endcan
 
     <hr>
 
@@ -28,7 +35,13 @@
                     @foreach( $customers as $customer )
                         <tr>
                             <td>
-                                <a href="/customers/{{ $customer->id }}">{{ $customer->name }}</a>
+                                @can('view', $customer)
+                                    <a href="/customers/{{ $customer->id }}">{{ $customer->name }}</a>
+                                @endcan
+
+                                @cannot('view', $customer)
+                                   {{ $customer->name }}
+                                @endcan
                             </td>
                             <td>{{ $customer->email }}</td>
                             <td>{{ $customer->company->name }}</td>

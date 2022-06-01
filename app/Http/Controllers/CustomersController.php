@@ -62,6 +62,16 @@ class CustomersController extends Controller
         // $customer->save();
 
         /**
+         * Policies: autorized access
+         * dir: App\Policies
+         * cms: php artisan make:policy [ModelPolicy] -m [Model]
+         * @params
+         *   - restfull controller policy method
+         *   - Model
+         */
+        $this->authorize('create', Customer::class);
+
+        /**
          * Field protected method using guarded and fillable property
          * */ 
         $customer = Customer::create($this->validateRequest());
@@ -100,6 +110,7 @@ class CustomersController extends Controller
      */
     public function show( $customer )
     {
+        $this->authorize('view', new Customer);
         // Option 1
         // if record exists show details else throw 404 not found
         $customer = Customer::where('id', $customer)->firstOrFail();
@@ -123,6 +134,7 @@ class CustomersController extends Controller
 
     public function destroy(Customer $customer)
     {
+        $this->authorize('delete', new Customer);
         $customer->delete();
         return redirect('customers');
     }
