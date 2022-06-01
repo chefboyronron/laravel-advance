@@ -85,3 +85,6 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 2. [Deployment Guide](https://gist.github.com/vicgonvt/cd0431a5cdc043ebab7f4954f7b4d471)
  - [Part 2](https://www.youtube.com/watch?v=duKZPrQ1Lvo&list=PLpzy7FIRqpGD0kxI48v8QEVVZd744Phi4&index=32)
  - [Part 3](https://www.youtube.com/watch?v=cDoBCn7i9cs&list=PLpzy7FIRqpGD0kxI48v8QEVVZd744Phi4&index=33)
+
+3. [Image Intervention](https://image.intervention.io/v2/introduction/installation)
+  - composer require intervention/image

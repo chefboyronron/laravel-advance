@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use App\Events\NewCustomerHasRegisteredEvent;
 use App\Customer;
 use App\Company;
@@ -81,6 +82,11 @@ class CustomersController extends Controller
             $customer->update([
                 'image' => request()->image->store('uploads', 'public'),
             ]);
+
+            // Image cropping and resizing
+            // https://image.intervention.io/v2/api/fit
+            $image = Image::make(public_path('storage/' . $customer->image))->fit(300, 300, null, 'center');
+            $image->save();
         }
     }
 
@@ -122,21 +128,29 @@ class CustomersController extends Controller
 
     public function validateRequest($customer_id = '')
     {
-        return tap(request()->validate([
+        // return tap(request()->validate([
+        //     'name' => 'required|min:3|max:50|unique:customers,name,' . $customer_id,
+        //     'email' => 'required|email|unique:customers,email,' . $customer_id,
+        //     'status' => 'required',
+        //     'company_id' => 'required'
+
+        // ]), function(){
+
+        //     if( request()->hasFile('image') ) {
+        //         request()->validate([
+        //             'image' => 'file|image|max:5000'
+        //         ]);
+        //     }
+
+        // });
+
+        return request()->validate([
             'name' => 'required|min:3|max:50|unique:customers,name,' . $customer_id,
             'email' => 'required|email|unique:customers,email,' . $customer_id,
             'status' => 'required',
-            'company_id' => 'required'
-
-        ]), function(){
-
-            if( request()->hasFile('image') ) {
-                request()->validate([
-                    'image' => 'file|image|max:5000'
-                ]);
-            }
-
-        });
+            'company_id' => 'required',
+            'image' => 'sometimes|file|image|max:5000',
+        ]);
     }
 
 }
