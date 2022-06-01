@@ -43,3 +43,21 @@ Route::resource('customers', 'CustomersController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+// One to One Relationship
+Route::get('/1to1', function() {
+
+    $user = factory(\App\User::class)->create();
+
+    // Option 1
+    // $phone = new \App\Phone();
+    // $phone->phone = '123-123-1234';
+    // $user->phone()->save($phone);
+
+    // Option 2
+    $user->phone()->create([
+        'phone' => '123-123-5555'
+    ]);
+
+});

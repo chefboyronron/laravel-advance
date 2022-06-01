@@ -90,3 +90,6 @@ The Laravel framework is open-source software licensed under the [MIT license](h
   - composer require intervention/image
 
 4. [https://laravel.com/docs/5.8/telescope](https://laravel.com/docs/5.8/telescope)
+
+5. Eloquest Relationships
+  - One to One Case (hasOne, BelongsTo)
