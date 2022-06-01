@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-4">
             {{-- <form action="/customers/{{ $customer->id }}" method="POST"> --}}
-            <form action="{{ route('customers.update', ['customer' => $customer]) }}" method="POST">
+            <form action="{{ route('customers.update', ['customer' => $customer]) }}" method="POST" enctype="multipart/form-data">
                 @include('customers.form')
                 <button type="submit" class="btn btn-primary mb-2">Save</button>
                 @method('PATCH')

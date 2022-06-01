@@ -17,6 +17,7 @@ class AlterCustomerTable extends Migration
             $table->integer('company_id')->after('id')->default(0);
             $table->string('email')->after('name');
             $table->smallInteger('status')->after('email')->default(0);
+            $table->string('image')->nullable();
         });
     }
 

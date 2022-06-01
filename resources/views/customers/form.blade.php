@@ -28,4 +28,12 @@
     </select>
     {{ $errors->first('company_id') }}
 </div>
+<div class="form-group">
+    <label for="image" class="d-flex flex-column">Profile Image</label>
+    @if( $customer->image )
+        <img src="{{ asset('storage/' . $customer->image) }}" alt="{{ $customer->name }}" class="img-fluid">
+    @endif
+    <input type="file" name="image" class="py-2">
+    {{ $errors->first('image') }}
+</div>
 @csrf

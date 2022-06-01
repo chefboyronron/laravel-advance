@@ -64,10 +64,24 @@ class CustomersController extends Controller
          * */ 
         $customer = Customer::create($this->validateRequest());
 
+        $this->storeImage($customer);
+
         // Events and Listener
         event(new NewCustomerHasRegisteredEvent($customer));
         
         return redirect('customers');
+    }
+
+    public function storeImage($customer)
+    {
+        // Create a symbolic link from "public/storage" to "storage/app/public"
+        // Artisan Command: php artisan storage:link
+        // Image URL: http://localhost:8000/storage/uploads/Lj7TVfN3fGbEBoM5fPGIFwzczJImKEc86nSeSPsW.png
+        if( request()->has('image') ) {
+            $customer->update([
+                'image' => request()->image->store('uploads', 'public'),
+            ]);
+        }
     }
 
     /** Option 2
@@ -94,6 +108,9 @@ class CustomersController extends Controller
     public function update(Customer $customer)
     {
         $customer->update($this->validateRequest($customer->id));
+
+        $this->storeImage($customer);
+
         return redirect('customers/' . $customer->id);
     }
 
@@ -105,12 +122,21 @@ class CustomersController extends Controller
 
     public function validateRequest($customer_id = '')
     {
-        return request()->validate([
+        return tap(request()->validate([
             'name' => 'required|min:3|max:50|unique:customers,name,' . $customer_id,
             'email' => 'required|email|unique:customers,email,' . $customer_id,
             'status' => 'required',
             'company_id' => 'required'
-        ]);
+
+        ]), function(){
+
+            if( request()->hasFile('image') ) {
+                request()->validate([
+                    'image' => 'file|image|max:5000'
+                ]);
+            }
+
+        });
     }
 
 }

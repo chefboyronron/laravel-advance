@@ -12,7 +12,7 @@
 
     <div class="row">
         <div class="col-md-4">
-            <form action="/customers" method="POST">
+            <form action="/customers" method="POST" enctype="multipart/form-data">
                 @include('customers.form')
                 <button type="submit" class="btn btn-primary mb-2">Add Customer</button>
                 @csrf

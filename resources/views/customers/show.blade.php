@@ -18,6 +18,13 @@
         </div>
         <div class="col-3">
             <table class="table table-dark">
+                @if( $customer->image )
+                    <tr>
+                        <td colspan="2">
+                            <img src="{{ asset('storage/' . $customer->image) }}" alt="{{ $customer->name }}" class="img-fluid mx-auto d-block">
+                        </td>
+                    </tr>
+                @endif
                 <tr>
                     <td>ID:</td>
                     <td>{{ $customer->id }}</td>
