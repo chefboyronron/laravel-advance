@@ -41,9 +41,9 @@
         </div>
     </div>
 
-    <hr>
+    {{-- <hr> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-6">
             <h4>Active Customers</h4>
             <table class="table table-dark">
@@ -96,9 +96,9 @@
             </table>
             {{ $inctiveCustomers->links() }}
         </div>
-    </div>
+    </div> --}}
 
-    <hr>
+    {{-- <hr>
     <h4>Company's Customers</h4>
     <div class="row">
     @foreach( $companies as $company )
@@ -119,7 +119,7 @@
             </table>
         </div>
     @endforeach
-    </div>
+    </div> --}}
 
 @endsection
 

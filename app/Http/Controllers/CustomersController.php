@@ -21,16 +21,16 @@ class CustomersController extends Controller
 
     public function index() 
     {
-        $activeCustomers = Customer::active('created_at', 'desc')->paginate(3, ['*'], 'active');
-        $inctiveCustomers = Customer::inactive('created_at', 'desc')->paginate(3, ['*'], 'inactive');
-        $companies = Company::with('customers')->get();
+        // $activeCustomers = Customer::active('created_at', 'desc')->paginate(3, ['*'], 'active');
+        // $inctiveCustomers = Customer::inactive('created_at', 'desc')->paginate(3, ['*'], 'inactive');
+        // $companies = Company::with('customers')->get();
         // $customers = Customer::orderBy('created_at', 'desc')->paginate(5);
         $customers = Customer::with('company')->orderBy('created_at', 'desc')->paginate(5);
 
         return view('customers.index', compact(
-            'activeCustomers',
-            'inctiveCustomers',
-            'companies',
+            // 'activeCustomers',
+            // 'inctiveCustomers',
+            // 'companies',
             'customers'
         ));
     }
