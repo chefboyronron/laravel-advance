@@ -61,3 +61,21 @@ Route::get('/1to1', function() {
     ]);
 
 });
+
+// One to Many Relationship
+Route:: get('/1tomany', function(){
+
+    $user = factory(\App\User::class)->create();
+
+    $user->posts()->create([
+        'title' => 'Title Here',
+        'body' => 'Body Here'
+    ]);
+
+    $user->posts->first()->title = 'New Title';
+    $user->posts->first()->body = 'New Better Body';
+
+    $user->push();
+
+    return $user->posts;
+});

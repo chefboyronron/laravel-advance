@@ -93,3 +93,4 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 
 5. Eloquest Relationships
   - One to One Case (hasOne, BelongsTo)
+  - One to Many Case (hasMany, BelongsTo)
