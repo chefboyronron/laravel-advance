@@ -79,3 +79,33 @@ Route:: get('/1tomany', function(){
 
     return $user->posts;
 });
+
+// Many to Many Relationship
+Route::get('/many2many', function() {
+    
+    // User assigning Role
+    // $user = \App\User::first();
+    // $roles = \App\Role::first();
+
+    // $user->roles()->attach($roles);
+    // $user->roles()->detach($role);
+    // via role id
+    // $user->roles()->attach([1, 3, 5]);
+    // $user->roles()->sync([1, 3, 5]);
+    // $user->roles()->syncWithoutDetaching([1]);
+
+
+    // Role assigning to User
+    // $role = \App\Role::find(4);
+    // $role->users()->sync([5]);
+
+    // Saving assignee to that role
+    $user = \App\User::first();
+    $roles = \App\Role::first();
+
+    $user->roles()->sync([
+        1 => [
+            'name' => 'Ron'
+        ]
+    ]);
+});
